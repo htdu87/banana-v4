@@ -106,8 +106,58 @@ body {
 
 /*end default bootstrap theme*/
 
+/*override bootstrap theme*/
+.navbar-inverse {
+    background-color: #2196F3;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: #fff;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #fff;
+}
+
+.nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {
+    background-color: #2196F3;
+}
+
+a {
+    color: #2196F3;
+}
+
+a:hover {
+    color: #1976D2;
+}
+
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
+    background-color: #1976D2;
+}
+
+.navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {
+    background-color: #1976D2;
+}
+.navbar-inverse .navbar-toggle {
+    border-color: #1976D2;
+}
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+    border-color: #1976D2;
+}
+
+@media (max-width: 767px){
+	.navbar-inverse .navbar-nav .open .dropdown-menu .divider {
+		background-color: #1976D2;
+	}
+	.navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+		color: #fff;
+	}
+}
+
+/* banana management style*/
 .banana-logo {
-	background-color:#2196F3;
+	background-color:#1976D2;
 	padding-bottom:5px;
 	padding-top:5px;
 	padding-left:10px;
