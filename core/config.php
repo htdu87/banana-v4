@@ -16,7 +16,7 @@
 		private $time_format;
 		private $timezone;
 		private $template;
-		private static $instance;
+		private static $inst;
 		
 		private function __construct()
 		{
@@ -40,17 +40,17 @@
 			$this->template = $config['config'][0]['template'];
 		}
 		
-		public static function get_instance()
+		public static function get_inst()
 		{
-			if(self::$instance == NULL)
-				self::$instance = new self();
+			if(self::$inst == NULL)
+				self::$inst = new self();
 			
-			return self::$instance;
+			return self::$inst;
 		}
 		
 		public function release()
 		{
-			self::$instance = NULL;
+			self::$inst = null;
 		}
 		
 		public function get_server_name()
