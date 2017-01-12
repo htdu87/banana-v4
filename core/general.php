@@ -11,24 +11,33 @@
 		private $tel;
 		private $heading;
 		private $email;
+		private $addr;
+		private $logo;
+		private $fav;
 		
 		private function __construct()
 		{
-			$db_helper = db_helper::get_instance();
-			$gen = $db_helper->execute("SELECT * FROM general WHERE gid = 1", 0);
-			$gen = mysql_fetch_array($gen);
-			$this->description = $gen["description"];
-			$this->image = "";
-			$this->keyword = $gen["keyword"];
-			$this->title = $gen["title"];
-			$this->footer = $gen["footer"];
-			$this->tag = $gen["tag"];
-			$this->tel = $gen["phone"];
-			$this->heading = $gen["heading"];
-			$this->email = $gen["email"];
+			$conn = idb_helper::get_inst()->open_db();
+			if($conn != null){
+				$stmt = $conn->prepare("select * from general where gid = 1");
+				$result = idb_helper::get_inst()->execute($stmt);
+				$gen = $result->fetch_assoc();
+				$this->description = $gen["des"];
+				$this->image = $gen["image"];
+				$this->keyword = $gen["tag"];
+				$this->title = $gen["title"];
+				$this->footer = $gen["footer"];
+				$this->tag = $gen["tag"];
+				$this->tel = $gen["phone"];
+				$this->heading = $gen["heading"];
+				$this->email = $gen["email"];
+				$this->addr = $gen["addr"];
+				$this->logo = $gen["logo"];
+				$this->fav = $gen["fav"];
+			}
 		}
 		
-		public static function get_instance()
+		public static function get_inst()
 		{
 			if(self::$general == NULL)
 				self::$general = new self();
@@ -124,6 +133,30 @@
 		public function set_email($email)
 		{
 			$this->email = $email;
+		}
+		
+		public function get_addr(){
+			return $this->addr;
+		}
+		
+		public function set_addr($addr){
+			$this->addr = $addr;
+		}
+		
+		public function get_logo(){
+			return $this->logo;
+		}
+		
+		public function set_logo($logo){
+			$this->logo = $logo;
+		}
+		
+		public function get_fav(){
+			return $this->fav;
+		}
+		
+		public function set_fav($fav){
+			$this->fav = $fav;
 		}
 	}
 ?>

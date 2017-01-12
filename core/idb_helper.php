@@ -5,6 +5,7 @@
 		private $usr_name;
 		private $pwd;
 		private static $inst;
+		private $conn;
 		
 		private function __construct(){
 			$this->serv_name = config::get_inst()->get_server_name();
@@ -19,13 +20,22 @@
 			return self::$inst;
 		}
 		
-		private function open_db(){
-			$conn = new mysqli($this->serv_name, $this->usr_name,$this->pwd, $this->db_name);
-			if($conn->connect_error){
+		public function open_db(){
+			@$this->conn = new mysqli($this->serv_name, $this->usr_name,$this->pwd, $this->db_name);
+			if($this->conn->connect_error){
+				error_handler::get_inst()->add_error($this->conn->connect_error);
+				return null;
+			}else{
+				return $this->conn;
+			}
+		}
+		
+		public function execute($stmt){
+			if($stmt->execute()!==true){
 				error_handler::get_inst()->add_error($conn->connect_error);
 				return null;
 			}else{
-				return $conn;
+				return $stmt->get_result();
 			}
 		}
 	}

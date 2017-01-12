@@ -59,6 +59,7 @@
 					var funcNum = getUrlParam('CKEditorFuncNum');
 					var fileUrl = $(this).attr('url');
 					window.opener.CKEDITOR.tools.callFunction(funcNum, fileUrl);
+					//window.opener.onaction(fileUrl);
 					window.close();
 				});
 			});
