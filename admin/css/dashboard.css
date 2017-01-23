@@ -155,6 +155,34 @@ a:hover {
 	}
 }
 
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+    color: #fff;
+    background-color: #1976D2;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #2196F3;
+    border-color: #2196F3;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #1976D2;
+    border-color: #1976D2;
+}
+
+.modal-header {
+    background-color: #2196F3;
+    border-radius: 6px 6px 0px 0px;
+    color: #fff;
+}
+
+.modal-body {
+	text-align:center;
+}
+
+
 /* banana management style*/
 .banana-logo {
 	background-color:#1976D2;
@@ -165,4 +193,24 @@ a:hover {
 	border-radius:4px;
 	color:#ffffff;
 	text-shadow:0px 0px 2px #666666;
+}
+
+textarea {
+	resize: none;
+}
+
+#toast{
+	position:fixed;
+	top:68px;
+	width:300px;
+	left:50%;
+	margin-left:-150px;
+	color:#fff;
+	background-color:#2196F3;
+	text-align:center;
+	padding:5px;
+	z-index:100;
+	border-radius:4px;
+	box-shadow: 0px 0px 10px #666666;
+	display:none;
 }

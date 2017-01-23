@@ -88,12 +88,12 @@
 			return $this->decimal_num;
 		}
 		
-		public function get_authentication_email()
+		public function get_authen_email()
 		{
 			return $this->auth_email;
 		}
 		
-		public function get_authentication_password()
+		public function get_authen_password()
 		{
 			return $this->auth_pass;
 		}

@@ -6,9 +6,17 @@
 		}
 	});
 	
+	set_error_handler(function($errno, $errstr, $errfile, $errline ){
+		error_handler::get_inst()->add_error("Error message: ".$errstr);
+		error_handler::get_inst()->add_error("File: ".$errfile);
+		error_handler::get_inst()->add_error("Line number: ".$errline);
+	});
+	
+	date_default_timezone_set(config::get_inst()->get_timezone());
+	
 	$m = isset($_GET["m"]) && !empty($_GET["m"]) ? $_GET["m"] : "home";
-	$router = new router();
-	$CONTENT = $router->load_module($m);
+	$ROUTER = new router();
+	$CONTENT = $ROUTER->load_module($m,true);
 	$TITLE = general::get_inst()->get_title();
 	$TITLE = empty($TITLE)? 'Banana&trade; Management': $TITLE;
 ?>
@@ -41,18 +49,15 @@
     <![endif]-->
 	
 	<!-- module's style sheet --->
-	<?php
-		echo $router->load_css();
-	?>
+	<?php echo $ROUTER->load_css()?>
   </head>
 
   <body>
-
+	<?php echo notifycation::get_inst()->get_toast();echo notifycation::get_inst()->get_alert()?>
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -62,7 +67,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#">Dashboard</a></li>
-            <li><a href="?m=settings">Settings</a></li>
+            <li class="active"><a href="?m=settings">Settings</a></li>
             <li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
 				<ul class="dropdown-menu">
@@ -77,9 +82,6 @@
 			</li>
             <li><a href="#">Help</a></li>
           </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
         </div>
       </div>
     </nav>
@@ -88,8 +90,8 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Overview</a></li>
-            <li><a href="#">Reports</a></li>
+            <li class="active"><a href="javascript:showConfirm('Tesst','Test message','yesFun(\'Test messgae\')')">Overview</a></li>
+            <li><a href="javascript:showAlert('Tesst','Test message')">Reports</a></li>
             <li><a href="#">Analytics</a></li>
             <li><a href="#">Export</a></li>
           </ul>
@@ -108,15 +110,10 @@
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 			<h1 class="page-header"><?php echo $TITLE ?></h1>
-
-          
             <?php
-				echo error_handler::get_inst()->get_error();
+				if(config::get_inst()->get_debug()=="on")echo error_handler::get_inst()->get_error();
 				echo $CONTENT;
 			?>
-			
-			
-          
         </div>
       </div>
     </div>
@@ -125,15 +122,15 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
+    <script>window.jQuery || document.write('<script src="js\/jquery.min.js"><\/script>')</script>
     <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <script src="js/holder.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
+	<!-- Banana management script -->
+    <script src="js/ba-script.js"></script>
 	<!-- module's script --->
-	<?php
-		echo $router->load_js();
-	?>
+	<?php echo $ROUTER->load_js()?>
   </body>
 </html>

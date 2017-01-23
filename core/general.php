@@ -19,7 +19,7 @@
 		{
 			$conn = idb_helper::get_inst()->open_db();
 			if($conn != null){
-				$stmt = $conn->prepare("select * from general where gid = 1");
+				$stmt = $conn->prepare("call get_general");
 				$result = idb_helper::get_inst()->execute($stmt);
 				$gen = $result->fetch_assoc();
 				$this->description = $gen["des"];

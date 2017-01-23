@@ -6,8 +6,8 @@
 		
 		public function __construct()
 		{
-			$this->email = config::get_instance()->get_authentication_email();
-			$this->password = config::get_instance()->get_authentication_password();
+			$this->email = config::get_inst()->get_authentication_email();
+			$this->password = config::get_inst()->get_authentication_password();
 		}
 		
 		/*

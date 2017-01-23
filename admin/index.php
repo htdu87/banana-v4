@@ -1,34 +1,74 @@
-<html>
-	<header>
-		<title>Test page</title>
-		<script type="text/javascript" src="ckeditor-4.6.0/ckeditor.js"></script>
-	</header>
-	<body>
-		<textarea name="editor" id="editor"></textarea>
-		<a href="javascript:void(0)" id="browser" onclick="popupCenter('ckeditor-4.6.0/browser/browser.php','title',1100,540)">Browser</a>
-	</body>
-	<script type="text/javascript">
-		CKEDITOR.replace( 'editor', {
-			//filebrowserBrowseUrl: 'ckfinder/ckfinder.html',
-			//filebrowserUploadUrl: 'ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
-			//filebrowserWindowWidth: '1000',
-			//filebrowserWindowHeight: '700',
-			//filebrowserBrowseUrl: 'ckfinder/ckfinder.html',
-			filebrowserImageBrowseUrl: 'ckeditor-4.6.0/browser/browser.php',
-			//filebrowserFlashBrowseUrl: 'ckfinder/ckfinder.html?type=Flash',
-			//filebrowserUploadUrl: 'ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-			filebrowserImageUploadUrl: 'ckeditor-4.6.0/upload/upload.php'
-			//filebrowserFlashUploadUrl: 'ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
-		});
-		
-		/* function popupCenter(url, title, w, h) {
-			var left = (screen.width/2)-(w/2);
-			var top = (screen.height/2)-(h/2);
-			return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
-		} */ 
-		
-		function onaction(url){
-			alert(url);
+<?php
+	spl_autoload_register(function($class){
+		$fname = $class.'.php';
+		if(file_exists('../core/'.$fname)){
+			include_once('../core/'.$fname);
 		}
-	</script>
+	});
+	
+	set_error_handler(function($errno, $errstr, $errfile, $errline ){
+		error_handler::get_inst()->add_error("Error message: ".$errstr);
+		error_handler::get_inst()->add_error("File: ".$errfile);
+		error_handler::get_inst()->add_error("Line number: ".$errline);
+	});
+?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="fav.ico">
+
+    <title>Login account | Banana&trade; Management</title>
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/signin.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+	<?php echo notifycation::get_inst()->get_toast();echo notifycation::get_inst()->get_alert()?>
+	<?php if(config::get_inst()->get_debug()=="on")echo error_handler::get_inst()->get_error();?>
+    <div class="container">
+		
+      <form class="form-signin">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+
+    </div> <!-- /container -->
+	
+	<footer class="footer">
+      <div class="container">
+        <p class="text-muted">Copyright &copy 2014-2017. Banana&trade; PHP Framework</p>
+      </div>
+    </footer>
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+  </body>
 </html>

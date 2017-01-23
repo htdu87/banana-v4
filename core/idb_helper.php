@@ -22,8 +22,7 @@
 		
 		public function open_db(){
 			@$this->conn = new mysqli($this->serv_name, $this->usr_name,$this->pwd, $this->db_name);
-			if($this->conn->connect_error){
-				error_handler::get_inst()->add_error($this->conn->connect_error);
+			if($this->conn->connect_error){ //auto handle
 				return null;
 			}else{
 				return $this->conn;
@@ -31,8 +30,12 @@
 		}
 		
 		public function execute($stmt){
-			if($stmt->execute()!==true){
-				error_handler::get_inst()->add_error($conn->connect_error);
+			if(!$stmt->execute()){
+				$bt = debug_backtrace();
+				$caller = array_shift($bt);
+				error_handler::get_inst()->add_error("Error message: ".$stmt->error);
+				error_handler::get_inst()->add_error("File: ".$caller['file']);
+				error_handler::get_inst()->add_error("Line number: ".$caller['line']);
 				return null;
 			}else{
 				return $stmt->get_result();
