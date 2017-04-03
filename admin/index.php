@@ -43,12 +43,19 @@
   <body>
 	<?php echo notifycation::get_inst()->get_toast();echo notifycation::get_inst()->get_alert()?>
 	<?php if(config::get_inst()->get_debug()=="on")echo error_handler::get_inst()->get_error();?>
+	<?php
+		/*
+		$s= new security();
+		echo $s->encryption("Dsco#2017").'<br>';
+		echo $s->decryption("Dt/7gp1JSx6km+QfMwyCsZwCXXOAEzl+cu0GTfJddkc=");
+		*/
+	?>
     <div class="container">
 		
       <form class="form-signin">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
+        <input type="text" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
         <div class="checkbox">
